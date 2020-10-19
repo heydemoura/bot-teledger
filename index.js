@@ -22,13 +22,32 @@ bot.use((ctx, next) => {
   return next();
 });
 
+const processBalanceFromCtx = (ctx, filter) => {
+  const balance = ledger.balance(`^${filter}`);
+  return balance;
+};
+
+bot.command("income", (ctx) => ctx.reply(processBalanceFromCtx(ctx, "income")));
+bot.command("expenses", (ctx) =>
+  ctx.reply(processBalanceFromCtx(ctx, "expenses"))
+);
+bot.command("liab", (ctx) =>
+  ctx.reply(processBalanceFromCtx(ctx, "liabilities"))
+);
+bot.command("assets", (ctx) => ctx.reply(processBalanceFromCtx(ctx, "assets")));
+
+bot.command("bal", (ctx) => {
+  const { message } = ctx;
+  const [, ...filters] = message.text.split(" ");
+  const balance = ledger.balance(
+    filters.map((filter) => `^${filter}`).join(" ")
+  );
+  ctx.reply(balance);
+});
+
 // Middlewares
 newTransactionMenu(bot, ledger);
 
 bot.help((ctx) => ctx.reply("Send a sticker"));
-bot.hears("bal", (ctx) => {
-  console.log(ctx.message);
-  ctx.reply("Hey there");
-});
 
 bot.launch();
