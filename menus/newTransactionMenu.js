@@ -102,11 +102,14 @@ module.exports = (bot, ledger) => {
   accountPickerMenu.submenu('💸 Expenses', 'expenses', accExpensesMenu, {
     joinLastRow: true
   });
+
   accountPickerMenu.submenu('💳 Liabilities', 'liab', accLiabilitiesMenu, {
   });
+
   accountPickerMenu.submenu('💎 Income', 'income', accLiabilitiesMenu, {
     joinLastRow: true
   });
+
   accountPickerMenu.interact('Show Transaction', 'show', {
     do: async (ctx) => {
       console.log(ctx.session.transaction);
