@@ -6,7 +6,7 @@ const newTransactionMenu = require("./menus/newTransactionMenu");
 
 const { createLedger } = require("./lib/ledger");
 
-const ledger = createLedger("./journal.dat");
+const ledger = createLedger(process.env.JOURNAL_FILE);
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
 bot.start((ctx) => {
