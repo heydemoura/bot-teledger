@@ -147,9 +147,9 @@ module.exports = (bot, ledger) => {
 
   accountPickerMenu.interact("Save Transaction", "save", {
     do: async (ctx) => {
-      console.log(ctx.session.transaction);
       if (ctx.session.transaction.isValid()) {
         console.log(">> Saving transaction");
+        console.log(ledger.write(ctx.session.transaction.toString()));
         await deleteMenuFromContext(ctx);
         return false;
       }
