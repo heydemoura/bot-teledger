@@ -45,6 +45,15 @@ bot.command("bal", (ctx) => {
   ctx.reply(balance);
 });
 
+bot.command("reg", (ctx) => {
+  const { message } = ctx;
+  const [, ...filters] = message.text.split("");
+  const register = ledger.register(
+    filters.map((filter) => `^${filter}`).join(" ")
+  );
+  ctx.reply(register);
+});
+
 // Middlewares
 newTransactionMenu(bot, ledger);
 
